@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node --watch server.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/AndreSanLopes/Node-aprendizado/issues"
   },
-  "homepage": "https://github.com/AndreSanLopes/Node-aprendizado#readme"
+  "homepage": "https://github.com/AndreSanLopes/Node-aprendizado#readme",
+  "dependencies": {
+    "fastify": "^5.8.2"
+  }
 }

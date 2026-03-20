@@ -2,7 +2,7 @@ import { createServer } from "node:http";
 //request = obtém dados da requisição que o usuário faz ao servidor
 //response = objeto para devolver a resposta para o usuário 
 const server = createServer( (request, response)=> {
-    response.write('Essa e uma mensagem do servidor')
+    response.write('Testando o recurso watch')
     return response.end()
 })
 
