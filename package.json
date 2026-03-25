@@ -22,5 +22,9 @@
   "homepage": "https://github.com/AndreSanLopes/Node-aprendizado#readme",
   "dependencies": {
     "fastify": "^5.8.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.2",
+    "tailwindcss": "^4.2.2"
   }
 }
