@@ -10,29 +10,65 @@ const server = createServer( (request, response)=> {
 //a porta irá servir para não ter conflitos com outros projetos
 //server.listen(3333)
 
-import {fastify} from "fastify"
+import { fastify } from "fastify";
+//importou as funções do arquivo databaseMemory
+//IMPORTANTE: é necessário inserir a extensão do arquivo no final: .js
+import { databaseMemory } from "./database-memory.js";
 
 //cria o servidor
-const server = fastify()
+const server = fastify();
+
+const database = new databaseMemory();
+//banco de dados criado
+
+//CRUD
+/*
+Protocolo HTTP, 4 principais:
+GET = busca uma informação
+POST = usado para criação
+PUT = operação, alteração em geral
+DELETE = apaga
+
+outros protocolos:
+PATCH = alterar informação específica
+*/
 
 //cria uma rota, especificando qual local e atribuindo uma ação
-//'/' é a rota do localhost:3333
-server.get('/', ()=>{
-    return 'Olá mundo!'
-})
+//'/' é a rota do localhost:3333/videos
+//ao utilizar 'post', estamos atribuindo a criação de um vídeo nesse caso
+server.post("/videos", (request, reply) => {
+  database.create({
+    title: "Video01",
+    description: "Detalhes sobre o vídeo",
+    duration: 180,
+  });
+
+  console.log(database.list());
+
+  return reply.status(201).send();
+  //201 significa que algo foi criado
+});
 
 //OUTRAS ROTAS:
-server.get('/hello', ()=> {
-    return 'Você está na rota hello, seja bem-vindo!'
-})
+server.get("/videos", () => {
+  return "Você está na rota hello, seja bem-vindo!";
+});
 
-server.get('/jogos', ()=> {
-    return 'Você está na rota de jogos, divirta-se.'
-})
+//rota para alterar um vídeo e apenas UM vídeo por vez
+//cada vídeo possui um ID = route parameter
+//localhost:3333/videos:put + id do vídeo
+server.put("/videos/:id", () => {
+  return "Você está na rota de jogos, divirta-se.";
+});
+
+//do mesmo modo que put, deleta um vídeo por vez usando o id dele
+server.delete("/videos/:id", () => {
+  return "Você está na rota de jogos, divirta-se.";
+});
 
 //1) faz o método listen
 //2) passa um objeto {}
 //3) passa a porta "port"
 server.listen({
-    port:3333,
-})
+  port: 3333,
+});
