@@ -11,6 +11,10 @@ export class databaseMemory {
   // Set - funciona como um array que não aceita valores duplicados,
   // Map - funciona como um objeto e possui uma API
 
+  list(){
+    return Array.from(this.#videos.values())
+  }
+
   //método utilizado para receber o vídeo e salvá-lo
   create(video) {
     const videoId = randomUUID()

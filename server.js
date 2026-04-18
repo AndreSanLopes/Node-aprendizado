@@ -36,22 +36,29 @@ PATCH = alterar informação específica
 //cria uma rota, especificando qual local e atribuindo uma ação
 //'/' é a rota do localhost:3333/videos
 //ao utilizar 'post', estamos atribuindo a criação de um vídeo nesse caso
+
+//Request Body
+
 server.post("/videos", (request, reply) => {
+  const { title, description, duration } = request.body;
+
   database.create({
-    title: "Video01",
-    description: "Detalhes sobre o vídeo",
-    duration: 180,
+    title: title,
+    description: description,
+    duration: duration,
   });
 
   console.log(database.list());
 
-  return reply.status(201).send();
+  return reply.status(201).send({ mensagem: "Vídeo criado com sucesso!" });
   //201 significa que algo foi criado
 });
 
 //OUTRAS ROTAS:
 server.get("/videos", () => {
-  return "Você está na rota hello, seja bem-vindo!";
+  const videos = database.list()
+
+  return videos
 });
 
 //rota para alterar um vídeo e apenas UM vídeo por vez
@@ -64,7 +71,7 @@ server.put("/videos/:id", () => {
 //do mesmo modo que put, deleta um vídeo por vez usando o id dele
 server.delete("/videos/:id", () => {
   return "Você está na rota de jogos, divirta-se.";
-});
+}); //aqui, ":id" refere-se ao vídeo selecionado, sendo que cada vídeo terá um id próprio
 
 //1) faz o método listen
 //2) passa um objeto {}
