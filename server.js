@@ -55,8 +55,12 @@ server.post("/videos", (request, reply) => {
 });
 
 //OUTRAS ROTAS:
-server.get("/videos", () => {
-  const videos = database.list();
+server.get("/videos", (request) => {
+  const search = request.query.search;
+
+  console.log(search);
+
+  const videos = database.list(search);
 
   return videos;
 });
