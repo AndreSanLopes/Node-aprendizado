@@ -56,21 +56,33 @@ server.post("/videos", (request, reply) => {
 
 //OUTRAS ROTAS:
 server.get("/videos", () => {
-  const videos = database.list()
+  const videos = database.list();
 
-  return videos
+  return videos;
 });
 
 //rota para alterar um vídeo e apenas UM vídeo por vez
 //cada vídeo possui um ID = route parameter
 //localhost:3333/videos:put + id do vídeo
-server.put("/videos/:id", () => {
-  return "Você está na rota de jogos, divirta-se.";
+server.put("/videos/:id", (request, reply) => {
+  const videoId = request.params.id; //através do request, utilizando o que está em params, acessamos os id's
+  const { title, description, duration } = request.body;
+
+  database.update(videoId, {
+    title,
+    description,
+    duration,
+  }); //atualiza parâmetros de um vídeo em específico
+
+  return reply.status(204).send(); //204 - teve sucesso, mas não conteúdo
 });
 
 //do mesmo modo que put, deleta um vídeo por vez usando o id dele
-server.delete("/videos/:id", () => {
-  return "Você está na rota de jogos, divirta-se.";
+server.delete("/videos/:id", (request, reply) => {
+  const videoId = request.params.id;
+  database.delete(videoId);
+
+  return reply.status(204).send();
 }); //aqui, ":id" refere-se ao vídeo selecionado, sendo que cada vídeo terá um id próprio
 
 //1) faz o método listen
