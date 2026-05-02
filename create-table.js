@@ -1,11 +1,11 @@
-import { sql } from './db.js'
-  
+import { sql } from "./db.js";
+
 sql`
-    CREATE TABLE videos{
+    CREATE TABLE videos(
         title       TEXT,
         description TEXT,
         duration    INTEGER
-    }
-`.then(() =>{
-    console.log('Tabela criada com sucesso!')
-})
+        );
+`.then(() => {
+  console.log("Tabela criada com sucesso!");
+});
